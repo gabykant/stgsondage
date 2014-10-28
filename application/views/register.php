@@ -13,6 +13,7 @@
                 <div class="form-controls"><?php echo form_input("email", "");?></div>
             </div>
             <div class="form-group">
+                <div class="form-control"><?php echo form_password("password", "");?></div>
             </div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_submit($data="", $content="Sign Up");?></div>
