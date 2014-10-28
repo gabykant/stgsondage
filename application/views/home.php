@@ -4,20 +4,27 @@
             <div id="title-register" class="classname"><a href="<?php echo base_url().'index.php/register/';?>">Register</a></div>
         </header>
         <div class="form-entry">
-            <?php echo form_open();?>
+            <?php echo form_open("index.php/login");?>
             <h1>Connect!</h1>
             <div class="form-group">
                 <div class="error">
                     <?php echo validation_errors();?>
                 </div>
+                <div class="error">
+                    <?php
+                        if($login_error != NULL) {
+                            echo $login_error;
+                        }
+                    ?>
+                </div>
             </div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_label("Username or Email address");?></div>
-                <div class="form-controls"><?php echo form_input("email", isset($_POST['email']));?></div>
+                <div class="form-controls"><?php echo form_input("email", isset($_POST['email'])? set_value('email', $_POST['email']): "");?></div>
             </div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_label("Password");?></div>
-                <div class="form-controls"><?php echo form_password("password");?></div>
+                <div class="form-controls"><?php echo form_password("pin");?></div>
             </div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_submit($data="", $content="Sign In");?></div>

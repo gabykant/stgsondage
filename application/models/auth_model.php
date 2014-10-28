@@ -9,10 +9,10 @@ class Auth_Model extends CI_Model {
         $query = $this->db->get_where(
                 "user", 
                 array(
-                    "username" => $username, 
-                    "password" => $pincode,
-                    "isbanned" => TRUE,
-                    "isactivated" => TRUE
+                    "email" => $username, 
+                    "pin" => $pincode,
+                    "isbanned" => 0,
+                    "isactivated" => 0
                     )
                 );
         // If a record exists then this user account exists.
@@ -20,8 +20,8 @@ class Auth_Model extends CI_Model {
             // We retrieve the result as row and get the first one of the entry which corresponds to the userID.
             $userRow = $query->row_array(1);
             // Retrieve user information
-            $userInfo = $this->db->join("user_roles", "user_role.user_id=users.id")
-                    ->get_where("profiles", array("user_id" => $userRow["id"]))->row_array(0);
+            $userInfo = $this->db->join("user_role", "user_role.user_id=profile.user_id")
+                    ->get_where("profile", array("profile.user_id" => $userRow["id"]))->row_array(0);
             // Save user information to session
             $userSession = array(
                 "loggedIn" => "yes",
@@ -32,8 +32,8 @@ class Auth_Model extends CI_Model {
             $this->session->set_userdata($userSession);
             // Set the last login datetime
             $last_connected = date("Y-mm-dd h:i:s");
-            $this->db->get_where("user", array("email" => $username))->set_row("date", $last_connected);
-            return;
+            $this->db->get_where("user", array("email" => $username))->set_row("last_login", $last_connected);
+            return TRUE;
         }
         return FALSE;
     }
@@ -76,6 +76,7 @@ class Auth_Model extends CI_Model {
     public function register($array) {
         $user = array(
             "email" => $array["email"],
+            "pin" => $array["pin"],
             "isbanned" => "no",
             "isactivated" => "no");
         $query = $this->db->insert("user", $user);

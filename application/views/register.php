@@ -8,12 +8,13 @@
             <?php echo form_open(base_url().'index.php/register');?>
             <h1>Create account!</h1>
             <div class="error"><?php echo validation_errors();?></div>
+            <div class="error"><?php if($unique === FALSE): echo 'This Email address is not available'; endif;?></div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_label("Enter a valid email address");?></div>
                 <div class="form-controls"><?php echo form_input("email", "");?></div>
             </div>
             <div class="form-group">
-                <div class="form-control"><?php echo form_password("password", "");?></div>
+                <div class="form-controls"><?php echo form_password("password", "");?></div>
             </div>
             <div class="form-group">
                 <div class="form-controls"><?php echo form_submit($data="", $content="Sign Up");?></div>
