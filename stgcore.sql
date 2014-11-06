@@ -283,3 +283,26 @@ ALTER TABLE `user_role`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+/* Add on 06.11.2014 */
+
+CREATE  TABLE IF NOT EXISTS `stgcore`.`Question_Lang` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `question_id` INT NULL ,
+  `lang_id` INT NULL ,
+  `label` VARCHAR(255) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_id_question` (`question_id` ASC) ,
+  INDEX `fk_id_lang` (`lang_id` ASC) ,
+  CONSTRAINT `fk_id_question`
+    FOREIGN KEY (`question_id` )
+    REFERENCES `stgcore`.`Question` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_id_lang`
+    FOREIGN KEY (`lang_id` )
+    REFERENCES `stgcore`.`Lang` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB, 
+COMMENT = 'This table is the 2:n relationship. A question is in two lan' /* comment truncated */ 

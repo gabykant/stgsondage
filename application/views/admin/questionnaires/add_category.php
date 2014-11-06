@@ -8,7 +8,9 @@
 <div class="templatemo-content-wrapper">
     <div class="templatemo-content">
         <h1>Manage category</h1>
-          
+        <div class="error">
+            <?php echo validation_errors();?>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <form method="POST">
@@ -36,7 +38,7 @@
                         foreach ($categories as $category) {
                             echo "<tr><td>";
                             echo $category["name"];
-                            echo "<td><a href='index.php/admin/category/delete/".$category["id"]."'>Delete</a></td></tr>";
+                            echo "<td><a href='category/delete/".$category["id"]."'>Delete</a></td></tr>";
                         }
                     ?>
                 </table>

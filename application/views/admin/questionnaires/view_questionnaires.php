@@ -13,7 +13,7 @@
                 <?php
                     if ($questions != NULL) {
                         foreach ($questions as $value) {
-                            //$value['id'];
+                            echo $value['label']."<br />";
                         }
                     }
                 ?>

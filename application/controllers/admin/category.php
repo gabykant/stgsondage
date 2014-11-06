@@ -6,10 +6,16 @@ class Category extends CI_Controller {
     }
     
     public function index() {
+        $this->load->library("form_validation");
         $list = array();
         if($this->input->post()) {
-            $input = $this->input->post("catInput");
-            $this->category_model->add(array("name" => $input));
+            $this->form_validation->set_rules("catInput", "Category", "required");
+            if($this->form_validation->run() == FALSE) {
+                $this->form_validation->set_message("The field %d is required");
+            } else {
+                $input = $this->input->post("catInput");
+                $this->category_model->add(array("name" => $input));
+            }
         }
         $list["categories"] = $this->category_model->get();
         $this->load->view("admin/questionnaires/add_category", $list);
@@ -32,8 +38,9 @@ class Category extends CI_Controller {
         
     }
     
-    public function delete() {
-        
+    public function delete($id) {
+        if($this->category_model->delete($id));
+        redirect("index.php/admin/category");
     }
 }
 ?>

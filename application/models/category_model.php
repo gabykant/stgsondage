@@ -23,5 +23,12 @@ class Category_Model extends CI_Model {
         }
         return FALSE;
     }
+    
+    function delete($id) {
+        $query = $this->db->delete("category", array("id" => $id));
+        if($query) 
+            return TRUE;
+        return FALSE;
+    }
 }
 ?>

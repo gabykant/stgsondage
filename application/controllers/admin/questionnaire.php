@@ -50,7 +50,11 @@ class Questionnaire extends CI_Controller {
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         try {
             // Catch any error and save to log file
-            $data['questions'] = $this->question_model->getAllQuestions($array["per_page"], $page);
+            $data["questions"] = $this->question_model->getAllQuestions($array["per_page"], $page);
+//            foreach ( $questions as $q ) :
+//                $category_id = $q["category_id"];
+//            endforeach;
+            //var_dump($questions);
             $data['link'] = $this->pagination->create_links();
         } catch (Exception $e) {
             

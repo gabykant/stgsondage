@@ -19,7 +19,9 @@ class Question_Model extends CI_Model {
     function getAllQuestions($limit, $offset) {
         $results = array();
         $this->db->limit($limit, $offset);
-        $query = $this->db->get('question');
+        $query = $this->db->join("question_lang", "question_lang.question_id=question.id")
+                ->join("lang", "lang.id=question_lang.lang_id")
+            ->get('question');
         if($query->num_rows() >= 1) {
             foreach ($query->result_array() as $r) {
                 $results[] = $r;

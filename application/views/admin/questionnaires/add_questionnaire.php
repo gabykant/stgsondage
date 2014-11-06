@@ -122,7 +122,8 @@
         });
         
         $( "#add-category" ).button().on( "click", function() {
-            dialog.dialog( "open" );
+            //dialog.dialog( "open" );
+            window.location.href="category"
         });
     });
 </script>
