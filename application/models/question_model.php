@@ -41,6 +41,15 @@ class Question_Model extends CI_Model {
         }
         return NULL;
     }
+    
+    function getQuestionByIdJson($id) {
+        $query = $this->db->join("question_lang", "question_lang.question_id=question.id")
+                ->get_where("question", array("question.id" => $id, "question_lang.lang_id" => 1));
+        if($query->num_rows() == 1) {
+            return $query->result_array();
+        }
+        return NULL;
+    }
 }
 
 ?>

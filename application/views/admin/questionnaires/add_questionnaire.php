@@ -13,6 +13,11 @@
             
         </p> 
           
+        <?php if(isset($done)):?>
+        <p class="bg-success">
+             <?php echo "Save succefully";?>
+        </p>
+        <?php endif;?>
         <div class="row">
             <div class="col-md-6">
                 <div id="AddCategory" title="Add new category">

@@ -178,6 +178,17 @@ h1 { font-size: 24px; }
 }
 .vmap { height: 400px; }
 
+.bg-success {
+    background-color: #dff0d8;
+    padding: 10px;
+    color: green;
+    font-size: 20px;
+}
+p .bg-success {
+    margin: 0 0 10px;
+    
+}
+
 /* 10. Media Queries
 ------------------------------------------------------*/
 @media screen and (min-width: 992px) {

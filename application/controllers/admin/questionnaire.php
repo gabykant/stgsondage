@@ -33,6 +33,7 @@ class Questionnaire extends CI_Controller {
                 )
             );
             $this->question_lang_model->add($array2);
+            $list['done'] = "";
         }
         $list["categories"] = $this->category_model->get();
         

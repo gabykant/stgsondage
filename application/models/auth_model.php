@@ -98,5 +98,23 @@ class Auth_Model extends CI_Model {
         }
         return FALSE;
     }
+    
+    /*  @function returns the list of the user registered on the system
+     *  return: Array
+     */
+    public function getAllUsers() {
+        $result = array();
+        $query = $this->db->get("user");
+        if($query->num_rows() > 1 ) {
+            $result = $query->result_array();
+        }
+        return $result;
+    }
+    
+    public function getUserById($id) {
+        $query = $this->db->join("profile", "profile.user_id=user.id")->get_where("user", array("user.id" => $id));
+        if($query->num_rows() === 1) { return $query->result_array();}
+        return NULL;
+    }
 }
 ?>

@@ -58,16 +58,16 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href=""><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Home</a>
+                        <a href="<?=  base_url()?>index.php/public/home"><i class="fa fa-fw fa-bar-chart-o"></i> Home</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Survey</a>
+                        <a href="<?=  base_url()?>index.php/public/survey"><i class="fa fa-fw fa-table"></i> Survey</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> My profile</a>
+                        <a href="<?=  base_url()?>index.php/public/profile"><i class="fa fa-fw fa-edit"></i> My profile</a>
                     </li>
                 </ul>
             </div>
