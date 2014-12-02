@@ -15,6 +15,16 @@ class Question_Model extends CI_Model {
     function getQuestions() {
         return $this->db->get("question")->result_array();
     }
+    
+    function getFirstQuestion() {
+        $result = array();
+        $query = $this->db->get("question", 1);
+        if($query->num_rows() >= 1) {
+            foreach ($query->result_array() as $r) {
+                $result[] = $r;
+            }
+        } return $result;
+    }
         
     function getAllQuestions($limit, $offset) {
         $results = array();
@@ -43,12 +53,24 @@ class Question_Model extends CI_Model {
     }
     
     function getQuestionByIdJson($id) {
+        $result = array();
         $query = $this->db->join("question_lang", "question_lang.question_id=question.id")
                 ->get_where("question", array("question.id" => $id, "question_lang.lang_id" => 1));
         if($query->num_rows() == 1) {
-            return $query->result_array();
+            foreach ($query->result_array() as $r) {
+                $result[]=$r;
+            }
         }
-        return NULL;
+        return $result;
+    }
+    
+    function getFirstQuestionId() {
+        $query = $this->db->get("question", 1);
+        if( $query->num_rows() === 1 ) {
+            $row = $query->row();
+            return $row->id;
+        }
+        return 1;
     }
 }
 

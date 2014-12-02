@@ -11,6 +11,8 @@
     .ui-progressbar .ui-progressbar-value {
         height: 110%;
     }
+    .form-group ul li { display: inline-block; list-style: none;}
+    .form-group ul li label { text-align: center;}
 </style>
 <div class="up">
     <!-- Page Heading -->
@@ -29,28 +31,41 @@
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-lg-6">
-            <div ng-app="QuestionList">
-                <div ng-controller="CtrlQuestion">
-                    <form>
+        <div class="col-lg-12">
+            <div>
+                    <form method="POST">
                         <div class="form-group">
-                                <label>{{question}}</label><br />
-                                <input type='text' name='question_input' class='form-control' />
+                                <label><?=$question?></label><br />
+                        </div>
+                        <div class="form-group text-center">
+                            <ul>
+                                <?php
+                                    if(isset($listoption)) {
+                                        foreach ($listoption as $list) {
+                                            ?>
+                                            <li>
+                                                <label><?=$list['name'];?></label><br />
+                                                <input type="radio" value="<?=$list['id'];?>" name="value_input" />
+                                            </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </ul>
                         </div>
                             <br />
                         <div class="form-group">
-                            <div class="col-lg-4 text-left"><button class="btn btn-default">Previous</button></div>
+                            <div class="col-lg-4 text-left"><button class="btn btn-default" name="btnquestion" value="previous">Previous</button></div>
                             <div class="col-lg-8 text-right">
-                                <div class="col-lg-6"><button class="btn btn-warning" ng-click="saveok()">Save</button></div>
-                                <div class="col-lg-6"><button class="btn btn-primary" ng-click="next()">Continue</button></div>
+                                <div class="col-lg-6"><button class="btn btn-warning" name="btnquestion" value="save">Save</button></div>
+                                <div class="col-lg-6"><button class="btn btn-primary" name="btnquestion" value="next">Continue</button></div>
                             </div>
                         </div>
                                
                     </form>
-                </div>
             </div>
         </div>
-        <div class="col-lg-6"></div>
+        
     </div>
     <!-- /.row -->
 </div>
@@ -58,30 +73,3 @@
 
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="<?=  base_url()?>cjfksoft/angularjs/js/angular.js"></script>
-<script src="<?=  base_url()?>cjfksoft/angularjs/js/ui-bootstrap-tpls-0.11.2.js"></script>
-
-<script>
-  var base_url ="<?=  base_url()?>";
-  var moduleapp = angular.module("QuestionList",['ui.bootstrap']);
-  moduleapp.controller("CtrlQuestion", function($scope, $http){
-      $scope.loadQuestion = function() {
-          var httprequest = $http.post(
-              base_url + "index.php/public/survey/question",
-              JSON.stringify({question_id: 11})
-          )
-          .success(function(data, status) {
-                $scope.question = data[0]['label'];
-                //alert($scope.data);
-          })
-          .error(function(data, status) {
-                $scope.data=data || "Data failled to load";
-                $scope.status = status;
-                alert("dsl");
-          });
-      };
-      //$scope.saveok = $scope.loadQuestion();
-      //$scope.next = function() {alert("ok");};
-      $scope.loadQuestion();
-  });
-</script>

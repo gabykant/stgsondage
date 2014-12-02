@@ -306,3 +306,74 @@ CREATE  TABLE IF NOT EXISTS `stgcore`.`Question_Lang` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB, 
 COMMENT = 'This table is the 2:n relationship. A question is in two lan' /* comment truncated */ 
+
+CREATE  TABLE IF NOT EXISTS `stgcore`.`Evaluation` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `value_input` INT NULL ,
+  `user_id` INT NOT NULL ,
+  `question_id` INT NOT NULL ,
+  `eval_date` DATETIME NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
+  INDEX `fk_id_user` (`user_id` ASC) ,
+  INDEX `fk_id_question_eval` (`question_id` ASC) ,
+  CONSTRAINT `fk_id_user`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `stgcore`.`User` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_id_question_eval`
+    FOREIGN KEY (`question_id` )
+    REFERENCES `stgcore`.`Question` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB, 
+COMMENT = 'This contains the response of all the users.' ;
+
+CREATE  TABLE IF NOT EXISTS `stgcore`.`Indice` (
+  `id` INT NOT NULL ,
+  `lang_id` INT NULL ,
+  `name` VARCHAR(255) NULL ,
+  INDEX `fk_id_indice_lang` (`lang_id` ASC) ,
+  CONSTRAINT `fk_id_indice_lang`
+    FOREIGN KEY (`lang_id` )
+    REFERENCES `stgcore`.`Lang` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+START TRANSACTION;
+USE `stgcore`;
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (1, 1, 'Très insatisfait');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (1, 2, 'Very unsatisfied');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (2, 1, 'Insatisfait');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (2, 2, 'Unsatisfied');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (3, 1, 'Neutre');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (3, 2, 'Neutral');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (4, 1, 'Satisfait');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (4, 2, 'Satisfied');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (5, 1, 'Très satisfait');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (5, 2, 'Very satisfied');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (6, 1, 'Non applicable');
+INSERT INTO `stgcore`.`Indice` (`id`, `lang_id`, `name`) VALUES (6, 2, 'Not applicable');
+
+COMMIT;
+
+CREATE  TABLE IF NOT EXISTS `stgcore`.`Status` (
+  `user_id` INT NOT NULL ,
+  `question_id` INT NULL ,
+  PRIMARY KEY (`user_id`) ,
+  INDEX `fk_id_status_user` (`user_id` ASC) ,
+  INDEX `fk_id_status_question` (`question_id` ASC) ,
+  CONSTRAINT `fk_id_status_user`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `stgcore`.`User` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_id_status_question`
+    FOREIGN KEY (`question_id` )
+    REFERENCES `stgcore`.`Question` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB, 
+COMMENT = 'Here we save the current question for each user. When the us' /* comment truncated */ ;

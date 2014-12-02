@@ -3,6 +3,7 @@
 class Auth_Model extends CI_Model {
     function __construct() {
         parent::__construct();
+        $this->load->model("question_model");
     }
     public function loginTemplate($username, $pincode) {
         // Retrieve user's information matching the username and the pincode (password)
@@ -23,11 +24,15 @@ class Auth_Model extends CI_Model {
             $userInfo = $this->db->join("user_role", "user_role.user_id=profile.user_id")
                     ->get_where("profile", array("profile.user_id" => $userRow["id"]))->row_array(0);
             // Save user information to session
+            $first_question_id = 0;
+            if ( count($this->question_model->getFirstQuestion()) >= 1) $first_question_id = $this->question_model->getFirstQuestion();
             $userSession = array(
                 "loggedIn" => "yes",
                 "email_address" => $userRow["email"],
                 "user_displayNames" => "",
-                "user_role" => $userInfo["role_id"]
+                "user_id" => $userRow["id"],
+                "user_role" => $userInfo["role_id"],
+                "question_id" => $first_question_id[0]["id"]
             );
             $this->session->set_userdata($userSession);
             // Set the last login datetime

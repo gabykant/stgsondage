@@ -27,7 +27,7 @@
                         </fieldset>
                     </form>
                 </div>
-                <?php echo form_open(base_url()."index.php/admin/questionnaire");?>
+                <?php echo form_open("index.php/admin/questionnaire");?>
                     <div class="form-group">
                             
                         <?php

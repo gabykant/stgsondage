@@ -46,7 +46,7 @@
                       data-scope="https://www.googleapis.com/auth/plus.login">
                     </span>
                 </span>
-                <script type="in/Login">Hello, <?js= firstName ?> <?js= lastName ?>.</script>
+                
             </div>
         </div>
         
